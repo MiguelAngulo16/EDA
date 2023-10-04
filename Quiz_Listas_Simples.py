@@ -8,24 +8,13 @@ class nodo:
 class libro_entrada:
     def __init__(self):
         self.cabeza = None
+        self.no_ingreso = 1
     
     def listaVacia(self):
         if self.cabeza == None:
             return True
         else:
             return False
-
-    def imprimir(self):
-        recorre = self.cabeza
-        cont = 1
-        while(recorre):
-            print("\nIngreso #",cont)
-            print("Nombre:",recorre.nombre)
-            print("Cédula:",recorre.cedula)
-            print("Habitación:",recorre.hab)
-            recorre = recorre.siguiente
-            cont += 1
-        
 
     def insertar(self, cedula, nombre, hab):
         nodo_nuevo = nodo(cedula,nombre,hab)
@@ -89,18 +78,34 @@ class lista:
                 
             if recorre != None:
                 recorre.siguiente = recorre.siguiente.siguiente
+                self.n0_hab += 1
             else:
                 print("Posicion no encontrada")
 
-    def consulta(self):
-        c = int(input("Ingrese el tipo de consulta:\n 1.Indivual \n 2.Total"))
-        if(c == 2):
-            libro_entrada.imprimir()
-
-    
-    
-
-
+    def consulta_huespedes(self):
+        c = int(input("Ingrese el tipo de consulta:\n 1.Indivual \n 2.Total \n"))
+        if(c == 1):
+            ced = input("Ingrese el documento del huesped: \n")
+            recorre = self.libro_entradas.cabeza
+            recorre_2 = self.cabeza
+            while(ced != recorre.cedula and (recorre and recorre_2)):
+                recorre = recorre.siguiente
+                recorre_2 = recorre_2.siguiente
+                self.libro_entradas.no_ingreso += 1
+            if(ced == recorre.cedula):
+                print("\nNombre:",recorre.nombre)
+                print("Cédula:",recorre.cedula)
+                print("Habitación:",recorre.hab)
+                print("No. de ingreso:",self.libro_entradas.no_ingreso)
+        elif(c == 2):
+            recorre = self.libro_entradas.cabeza
+            while(recorre):
+                print("\nIngreso #", self.libro_entradas.no_ingreso)
+                print("Nombre:",recorre.nombre)
+                print("Cédula:",recorre.cedula)
+                print("Habitación:",recorre.hab)
+                self.libro_entradas.no_ingreso += 1
+                recorre = recorre.siguiente
 
 huespedes = lista()
 
@@ -111,12 +116,10 @@ huespedes.insertar("113843221","Kevin Lozano",3)
 huespedes.insertar("113843221","Kevin Lozano",3)
 huespedes.insertar("113843221","Carlos Lozano",3)
 huespedes.insertar("113843221","Maxi Lozano",3)
-huespedes.insertar("113843221","Sebastian Lozano",3)
-huespedes.insertar("113843221","Juan Lozano",3)
+huespedes.insertar("113843571","Sebastian Lozano",14)
+huespedes.insertar("109843221","Juan Lozano",3)
 
+huespedes.eliminar(2)
+huespedes.eliminar(7)
 
-huespedes.eliminar(4)
-huespedes.eliminar(0)
-
-huespedes.consulta()
-
+huespedes.consulta_huespedes()
