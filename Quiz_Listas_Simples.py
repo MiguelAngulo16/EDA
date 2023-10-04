@@ -15,17 +15,16 @@ class libro_entrada:
         else:
             return False
 
-    def consulta(self,c):
-        if(c == 2):
-            recorre = self.cabeza
-            cont = 1
-            while(recorre):
-                print("\nIngreso #",cont)
-                print("Nombre:",recorre.nombre)
-                print("Cédula:",recorre.cedula)
-                print("Habitación:",recorre.hab)
-                recorre = recorre.siguiente
-                cont += 1
+    def imprimir(self):
+        recorre = self.cabeza
+        cont = 1
+        while(recorre):
+            print("\nIngreso #",cont)
+            print("Nombre:",recorre.nombre)
+            print("Cédula:",recorre.cedula)
+            print("Habitación:",recorre.hab)
+            recorre = recorre.siguiente
+            cont += 1
         
 
     def insertar(self, cedula, nombre, hab):
@@ -92,6 +91,12 @@ class lista:
                 recorre.siguiente = recorre.siguiente.siguiente
             else:
                 print("Posicion no encontrada")
+
+    def consulta(self):
+        c = int(input("Ingrese el tipo de consulta:\n 1.Indivual \n 2.Total"))
+        if(c == 2):
+            libro_entrada.imprimir()
+
     
     
 
@@ -105,7 +110,7 @@ huespedes.insertar("113843221","Kevin Lozano",3)
 huespedes.insertar("113843221","Kevin Lozano",3)
 huespedes.insertar("113843221","Kevin Lozano",3)
 huespedes.insertar("113843221","Carlos Lozano",3)
-huespedes.insertar("113843221","Kevin Lozano",3)
+huespedes.insertar("113843221","Maxi Lozano",3)
 huespedes.insertar("113843221","Sebastian Lozano",3)
 huespedes.insertar("113843221","Juan Lozano",3)
 
@@ -113,5 +118,5 @@ huespedes.insertar("113843221","Juan Lozano",3)
 huespedes.eliminar(4)
 huespedes.eliminar(0)
 
-huespedes.libro_entradas.consulta(2)
+huespedes.consulta()
 
