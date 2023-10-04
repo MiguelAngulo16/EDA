@@ -5,38 +5,77 @@ class nodo:
         self.hab = hab
         self.siguiente = None
 
-class lista:
+class libro_entrada:
     def __init__(self):
         self.cabeza = None
-        self.tamano = 0
-
+    
     def listaVacia(self):
         if self.cabeza == None:
             return True
         else:
             return False
-    def insertarFinal(self, cedula, nombre, hab):
+
+    def consulta(self,c):
+        if(c == 2):
+            recorre = self.cabeza
+            cont = 1
+            while(recorre):
+                print("\nIngreso #",cont)
+                print("Nombre:",recorre.nombre)
+                print("Cédula:",recorre.cedula)
+                print("Habitación:",recorre.hab)
+                recorre = recorre.siguiente
+                cont += 1
+        
+
+    def insertar(self, cedula, nombre, hab):
         nodo_nuevo = nodo(cedula,nombre,hab)
         recorre = self.cabeza
         if(self.listaVacia()):
             nodo_nuevo = nodo(cedula, nombre, hab)
             nodo_nuevo.siguiente = self.cabeza
             self.cabeza = nodo_nuevo
-            self.tamano = self.tamano + 1
         else:
             while (recorre.siguiente != None):
                 recorre = recorre.siguiente
             recorre.siguiente = nodo_nuevo
-            self.tamano = self.tamano + 1
-                
+
+class lista:
+    def __init__(self):
+        self.cabeza = None
+        self.libro_entradas = libro_entrada()
+        self.n0_hab = 100
+
+    def listaVacia(self):
+        if self.cabeza == None:
+            return True
+        else:
+            return False
+        
+    def insertar(self, cedula, nombre, hab):
+        nodo_nuevo = nodo(cedula,nombre,hab)
+        recorre = self.cabeza
+        if(self.listaVacia()):
+            nodo_nuevo = nodo(cedula, nombre, hab)
+            nodo_nuevo.siguiente = self.cabeza
+            self.cabeza = nodo_nuevo
+            self.n0_hab -= 1
+            self.libro_entradas.insertar(cedula,nombre,hab)
+        else:
+            while (recorre.siguiente != None):
+                recorre = recorre.siguiente
+            recorre.siguiente = nodo_nuevo
+            self.n0_hab -= 1
+            self.libro_entradas.insertar(cedula,nombre,hab)
+                       
     def eliminarInicio(self):
         if(self.listaVacia()):
-            print("La lista está vacia")
+            print("Todas las habitaciones estan disponibles.")
         else:
             self.cabeza = self.cabeza.siguiente
-            self.tamano = self.tamano - 1
+            self.n0_hab += 1
             
-    def eliminar_idx(self,idx):
+    def eliminar(self,idx):
         if(self.listaVacia()):
             pass
         
@@ -54,32 +93,25 @@ class lista:
             else:
                 print("Posicion no encontrada")
     
-    def imprimir_lista(self):
-        recorre = self.cabeza
-        cont = 1
-        while(recorre):
-            print("\nIngreso #",cont)
-            print("Nombre:",recorre.nombre)
-            print("Cédula:",recorre.cedula)
-            print("Habitación:",recorre.hab)
-            recorre = recorre.siguiente
-            cont += 1
+    
+
 
 
 huespedes = lista()
 
-huespedes.insertarFinal("1095843221","Cristian Alvarez",10)
-huespedes.insertarFinal("1095849121","Laura Garcia",6)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
-huespedes.insertarFinal("113843221","Kevin Lozano",3)
+huespedes.insertar("1095843221","Cristian Alvarez",10)
+huespedes.insertar("1095849121","Laura Garcia",6)
+huespedes.insertar("113843221","Kevin Lozano",3)
+huespedes.insertar("113843221","Kevin Lozano",3)
+huespedes.insertar("113843221","Kevin Lozano",3)
+huespedes.insertar("113843221","Carlos Lozano",3)
+huespedes.insertar("113843221","Kevin Lozano",3)
+huespedes.insertar("113843221","Sebastian Lozano",3)
+huespedes.insertar("113843221","Juan Lozano",3)
 
-huespedes.eliminar_idx(1)
-huespedes.eliminar_idx(4)
-huespedes.eliminar_idx(7)
 
+huespedes.eliminar(4)
+huespedes.eliminar(0)
+
+huespedes.libro_entradas.consulta(2)
 
